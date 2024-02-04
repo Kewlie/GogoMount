@@ -5,7 +5,7 @@ GoGoMountData.spellMounts = {
             item = false,
             spell = true,
             level = 40,
-            class = GoGoMountData.classNumbers[2],
+            class = GoGoMountData.classIndex[2],
             races = {
                 GoGoMountData.raceID[1],
                 GoGoMountData.raceID[6]
@@ -17,7 +17,7 @@ GoGoMountData.spellMounts = {
             item = false,
             spell = true,
             level = 60,
-            class = GoGoMountData.classNumbers[2],
+            class = GoGoMountData.classIndex[2],
             races = {
                 GoGoMountData.raceID[1],
                 GoGoMountData.raceID[6]
@@ -29,7 +29,7 @@ GoGoMountData.spellMounts = {
             item = false,
             spell = true,
             level = 40,
-            class = GoGoMountData.classNumbers[9],
+            class = GoGoMountData.classIndex[9],
             races = {
                 GoGoMountData.raceID[1],
                 GoGoMountData.raceID[2],
@@ -43,7 +43,7 @@ GoGoMountData.spellMounts = {
             item = false,
             spell = true,
             level = 60,
-            class = GoGoMountData.classNumbers[9],
+            class = GoGoMountData.classIndex[9],
             races = {
                 GoGoMountData.raceID[1],
                 GoGoMountData.raceID[2],

@@ -8,7 +8,5 @@ GoGoMountData.lua
 classForms.lua
 itemMounts.lua
 spellMounts.lua
-GoGomountFunctions.lua
 GoGoLogic.lua
 GoGoMount.lua
-##GoGoMountOptions.lua

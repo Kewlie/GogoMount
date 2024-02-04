@@ -1,16 +1,11 @@
+
 local GoGoMount = CreateFrame("Frame")
 GoGoMount:RegisterEvent("ADDON_LOADED")
-GoGoMount:RegisterEvent("PLAYER_LOGIN")
-GoGoMount:RegisterEvent("PLAYER_REGEN_ENABLED") -- Added for secure buttons
+GoGoMount:RegisterEvent("PLAYER_LOGIN")  -- Trigger the scan upon login
+GoGoMount:RegisterEvent("PLAYER_REGEN_ENABLED")  -- Optional, if needed for other purposes
 GoGoMount:RegisterEvent("UNIT_AURA")
 GoGoMount:SetScript("OnEvent", GoGoAddon_OnEvent)
----@class GoGoMountFrame : Frame
 
--- Class forms data (accessible from other files)
-local GoGoMountData = _G.GoGoMountData  -- Create the table if it doesn't exist
---GoGoMountData.classForms = require("ClassForms")  -- Load the classForms data
---GoGoMountData.spellMounts = require("SpellMounts") -- Load the Spell Based Mounts
---GoGoMountData.itemMounts = require("ItemMounts") -- Load the Item Based Mounts
 
 -- SetKeyBind in WoW Interface Options
 local defaultKeybind = "`"  -- Replace "`" with your desired default key
@@ -28,27 +23,24 @@ keybindButton:SetScript("OnClick", function()
 end)
 
 -- Slash Commands
-SlashCmdList["GOGOMOUNT"] = GoGoMount_SlashCommand
+SlashCmdList["GOGOMOUNT"] = function(msg, editbox)
 SLASH_GOGOMOUNT1 = "/gogomount"  -- Redundant slash command removed
 SLASH_GOGOMOUNT2 = "/ggm"  -- Redundant slash command removed
 SLASH_GOGOMOUNT3 = "/mountlist"  -- Primary slash command
 SLASH_GOGOMOUNT4 = "/ml"  -- Optional shorter version
+end
 
 -- Event handler
 function GoGoAddon_OnEvent(self, event, arg1, ...)
-  if event == "ADDON_LOADED" and arg1 == "GoGoMount" then
-    -- Code to execute when addon is loaded
-    DEFAULT_CHAT_FRAME:AddMessage("GoGoMount addon loaded!")
-  elseif event == "PLAYER_LOGIN" then
-    -- Check for existing keybind and update UI
-    local key = GetBindingKey("GoGoMount_Activate")
-    if key then
-      keybindButton:SetText(key)
+  if event == "PLAYER_LOGIN" then
+--    local logic = require("GoGoLogic")
+--    if logic then print("Logic Loaded!") end
+    print("GoGoMount Addon Loaded")    -- Check for existing keybind and update UI
+    ScanPlayerSpellbook()  -- Call the function on load so that we can populate data from the game client
+    ScanInventory()
+    --[[elseif event == "PLAYER_REGEN_ENABLED" then
+      ScanPlayerSpellbook()
+    ScanInventory() -- call function here to keep data up to date or maybe register spell book change?
+    else return nil]]--
     end
-  elseif event == "PLAYER_REGEN_ENABLED" then
-    ScanPlayerSpellbook()
-    -- ... (handle mountButton binding in combat)
-  elseif event == "UNIT_AURA" then
-    -- ... (handle dismountButton binding based on mounted/dismounted state)
-  end
 end

@@ -7,56 +7,73 @@ local outside = IsOutdoors()
 local swimming = IsSwimming()
 local inCombat = InCombatLockdown()
 
-local playerKnownSpells = {}  -- Declare table outside the function
+GoGoMountData.playerKnownSpells = {}  -- Declare table outside the function
 
 function ScanPlayerSpellbook()
-  -- Clear any previous data
-  playerKnownSpells = {}
-
+  print("Starting spellbook scan...")  -- Add debugging output
+GoGoMountData.playerKnownSpells = {}  -- Clear the table
   for i = 1, GetNumSpellTabs() do
     local offset, numSlots = select(3, GetSpellTabInfo(i))
 
     for j = offset + 1, offset + numSlots do
       local spellName, _, spellID = GetSpellBookItemName(j, BOOKTYPE_SPELL)
-      playerKnownSpells[spellID] = spellName
+      GoGoMountData.playerKnownSpells[spellID] = spellName
     end
   end
-return playerKnownSpells
+  print("Spellbook scan completed. PlayerKnownSpells:", GoGoMountData.playerKnownSpells)  -- Add debugging output
+  return GoGoMountData.playerKnownSpells
 end
--- Call the function to populate the table
---ScanPlayerSpellbook()
+-- TODO: build function to find current riding skill (Maybe only if player >= level 40)
+ScanPlayerSpellbook()  -- Call the function to populate the table
 
 -- Function to find matching mounts
+local matchingMounts = {}
 function FindMatchingMounts()
-  local matchingMounts = {}
 
   -- Iterate through class forms and spell mounts
   for category, mountData in pairs({ classForms = GoGoMountData.classForms, spellMounts = GoGoMountData.spellMounts }) do
     for spellName, spellID in pairs(mountData) do
-      if playerKnownSpells[spellName] then
+      if GoGoMountData.playerKnownSpells[spellName] then
         table.insert(matchingMounts, {
-          name = spellName,
+          name = spellID.name,
           spellID = spellID,
-          category = category,
-          -- ... other relevant data
+          item = spellID.item,
+          spell = spellID.spell,
+          levelReq = spellID.level,
         })
       end
     end
   end
-
   return matchingMounts
 end
-
-local matchingMounts = FindMatchingMounts()
-
+matchingMounts = FindMatchingMounts()
 -- Print the names of the matching mounts
 for _, mountData in pairs(matchingMounts) do
   print("Matching mount:", mountData.name)
 end
 
+GoGoMountData.playerInventory = {}
+function ScanInventory()
+  print("Scan Inventory Function has been called!, Running Scan now")
+  GoGoMountData.playerInventory = {}  -- Initialize inventory table
+    for bag = 0, NUM_BAG_FRAMES do
+      for slot = 1, C_Container.GetContainerNumSlots(bag) do
+        local name = C_Container.GetContainerItemLink(bag, slot)
+        local itemID = C_Container.GetContainerItemID(bag, slot)  -- Retrieve itemID
+        print(bag, slot)
+        table.insert(GoGoMountData.playerInventory, {
+          name = name,
+          itemID = itemID,
+          bag = bag,
+          slot = slot,
+          })
+      end
+    end
+    return GoGoMountData.playerInventory
+end
 
 -- Function to print mount information for debugging
-function DebugMounts(mountList, arg)
+--[[function DebugMounts(mountList, arg)
   local category = arg and arg:lower() or "class"
   for _, mountData in pairs(mountList) do
     print("Name:", mountData.name)
@@ -66,21 +83,4 @@ function DebugMounts(mountList, arg)
     print("Usable:", mountData.usable)
     print("----------")
   end
-end
-
--- Unused function for bag scanning (commented out)
---[[
-function GoGo_GetMounts(inventoryMounts)
-  local list = {}
-  if (table.getn(inventoryMounts) > 0) then
-    for bag = 0, NUM_BAG_FRAMES do
-      for slot = 1, GetContainerNumSlots(bag) do
-        local name = GetContainerItemLink(bag, slot) or ""
-        for index, value in ipairs(inventoryMounts) do
-          if string.find(name, value) then table.insert(list, {name = name, bag = bag, slot = slot}) end
-        end
-      end
-    end
-  end
-end
---]]
+end]]--
