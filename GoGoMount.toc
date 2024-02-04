@@ -1,0 +1,14 @@
+## Interface: 11500
+## Title: GoGoMount Classic Era
+## Version: Classic Era 1.15
+## Notes: One-key solution for mounting/dismounting, supports spells, shapeshifting
+## Author: Kewlie
+
+GoGoMountData.lua
+classForms.lua
+itemMounts.lua
+spellMounts.lua
+GoGomountFunctions.lua
+GoGoLogic.lua
+GoGoMount.lua
+##GoGoMountOptions.lua
