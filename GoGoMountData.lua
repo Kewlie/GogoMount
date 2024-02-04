@@ -17,7 +17,7 @@ GoGoMountData.raceID = {
 }
 
 -- Listing Blizzard Index for Playable Classes
-GoGoMountData.classNumbers = {
+GoGoMountData.classIndex = {
     [1] = "WARRIOR",
     [2] = "PALADIN",
     [3] = "HUNTER",
@@ -50,7 +50,6 @@ function customConcat(table, separator)
     end
     return result
 end
-GoGoMountData.classIndex = customConcat(GoGoMountData.classNumbers, ",")
 
 --Setting concated tables within GoGoMountData for Faction information
 GoGoMountData.allRaceA = table.concat(GoGoMountData.factions.ALLIANCE, ",")
