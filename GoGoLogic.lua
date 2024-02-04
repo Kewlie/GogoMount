@@ -53,6 +53,24 @@ for _, mountData in pairs(matchingMounts) do
 end
 
 GoGoMountData.playerInventory = {}
+function ScanInventory()
+  print("Scan Inventory Function has been called!, Running Scan now")
+  GoGoMountData.playerInventory = {}  -- Initialize inventory table
+    for bag = 0, NUM_BAG_FRAMES do
+      for slot = 1, C_Container.GetContainerNumSlots(bag) do
+        local name = C_Container.GetContainerItemLink(bag, slot)
+        local itemID = C_Container.GetContainerItemID(bag, slot)  -- Retrieve itemID
+        print(bag, slot)
+        table.insert(GoGoMountData.playerInventory, {
+          name = name,
+          itemID = itemID,
+          bag = bag,
+          slot = slot,
+          })
+      end
+    end
+    return GoGoMountData.playerInventory
+end
 
 function ScanInventory()
   print("Scan Inventory Function has been called!, Running Scan now")
