@@ -38,7 +38,7 @@ HORDE = {GoGoMountData.raceID[2], GoGoMountData.raceID[3], GoGoMountData.raceID[
 
 --Concating by custom methods to retain the index while in string form to store
 --just in case we need to call apon it via string search
-function customConcat(table, separator)
+function CustomConcat(table, separator)
     local result = ""
     for key, value in pairs(table) do
         if key ~= 6 and key ~= 10 then -- Exclude specific indices
