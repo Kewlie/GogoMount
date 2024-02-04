@@ -10,7 +10,6 @@ local inCombat = InCombatLockdown()
 GoGoMountData.playerKnownSpells = {}  -- Declare table outside the function
 
 function ScanPlayerSpellbook()
-  print("Starting spellbook scan...")  -- Add debugging output
 GoGoMountData.playerKnownSpells = {}  -- Clear the table
   for i = 1, GetNumSpellTabs() do
     local offset, numSlots = select(3, GetSpellTabInfo(i))
@@ -20,7 +19,6 @@ GoGoMountData.playerKnownSpells = {}  -- Clear the table
       GoGoMountData.playerKnownSpells[spellID] = spellName
     end
   end
-  print("Spellbook scan completed. PlayerKnownSpells:", GoGoMountData.playerKnownSpells)  -- Add debugging output
   return GoGoMountData.playerKnownSpells
 end
 -- TODO: build function to find current riding skill (Maybe only if player >= level 40)
@@ -39,7 +37,7 @@ function FindMatchingMounts()
           spellID = spellID,
           item = spellID.item,
           spell = spellID.spell,
-          levelReq = spellID.level,
+          level = spellID.level,
         })
       end
     end
@@ -50,7 +48,18 @@ matchingMounts = FindMatchingMounts()
 -- Print the names of the matching mounts
 for _, mountData in pairs(matchingMounts) do
   print("Matching mount:", mountData.name)
+  table.insert(GoGoMountData.matchingMounts, mountData.index)
 end
+
+function CanUseMount(playerClass, mountID)
+  -- Check class restrictions:
+  local allowedClasses = GoGoMountData.spellMounts[mountID].class  -- Assuming class restrictions are stored here
+  if allowedClasses and not table.find(allowedClasses, playerClass) then
+    return false  -- Mount not usable by this class
+  end
+   return true
+end
+
 
 GoGoMountData.playerInventory = {}
 function ScanInventory()
@@ -92,7 +101,68 @@ function ScanInventory()
     end
     return GoGoMountData.playerInventory
 end
+
 ScanInventory()
+
+local function smartMountClick()
+  if InCombatLockdown() then
+    return false -- Do nothing or display a message
+  end
+
+  local matchedMounts = {}
+
+  -- Check for special movement abilities first
+  local classInfo = GoGoMountData.classForms[playerClass]
+  if classInfo then
+    for _, formInfo in pairs(classInfo) do
+      if formInfo.level <= playerLevel and -- Level restriction
+         (not formInfo.outdoors or IsOutdoors()) and -- Outdoor check
+         (not formInfo.swim or IsSwimming()) then -- Aquatic check
+        table.insert(matchedMounts, formInfo)
+      end
+    end
+  end
+
+  -- If no suitable special movement found, check for regular mounts
+  if #matchedMounts == 0 and playerLevel >= 40 then
+    local mountData = FindMatchingMounts()
+    local filteredMounts = table.filter(mountData, function(mountInfo)
+      return mountInfo.level == playerLevel
+    end)
+    table.insert(matchedMounts, filteredMounts)
+  end
+
+  -- Select the best available mode of transport
+  local bestMode = nil
+
+  -- Prioritize instant forms/aspects if player is moving
+  if playerMoving then
+    for _, option in pairs(matchedMounts) do
+      if option.type == "form" or option.type == "buff" then -- Check for "form" or "buff" types
+        bestMode = option
+        break
+      end
+    end
+  end
+
+  -- If no instant option found, choose based on speed and usability
+  if not bestMode then
+    -- Implement logic to prioritize speed and usability criteria
+  end
+
+  -- Randomize if multiple options with equal priority
+  if #matchedMounts > 1 and not bestMode then
+    local randomIndex = math.random(1, #matchedMounts)
+    bestMode = matchedMounts[randomIndex]
+  end
+
+  -- Use the selected mode
+  if bestMode then
+    -- Set macro or use ability based on bestMode.type
+  end
+
+  return true -- Indicate success
+end
 -- Function to print mount information for debugging
 --[[function DebugMounts(mountList, arg)
   local category = arg and arg:lower() or "class"
