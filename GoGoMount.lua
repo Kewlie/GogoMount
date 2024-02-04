@@ -40,13 +40,13 @@ function GoGoAddon_OnEvent(self, event, arg1, ...)
     -- Code to execute when addon is loaded
     DEFAULT_CHAT_FRAME:AddMessage("GoGoMount addon loaded!")
   elseif event == "PLAYER_LOGIN" then
-    ScanPlayerSpellbook()
     -- Check for existing keybind and update UI
     local key = GetBindingKey("GoGoMount_Activate")
     if key then
       keybindButton:SetText(key)
     end
   elseif event == "PLAYER_REGEN_ENABLED" then
+    ScanPlayerSpellbook()
     -- ... (handle mountButton binding in combat)
   elseif event == "UNIT_AURA" then
     -- ... (handle dismountButton binding based on mounted/dismounted state)

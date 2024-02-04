@@ -9,22 +9,22 @@ local inCombat = InCombatLockdown()
 
 local playerKnownSpells = {}  -- Declare table outside the function
 
-  function ScanPlayerSpellbook()
-    -- Clear any previous data
-    playerKnownSpells = {}
-  
-    for i = 1, GetNumSpellTabs() do
-      local offset, numSlots = select(3, GetSpellTabInfo(i))
-  
-      for j = offset + 1, offset + numSlots do
-        local spellName, _, spellID = GetSpellBookItemName(j, BOOKTYPE_SPELL)
-        playerKnownSpells[spellID] = spellName
-      end
+function ScanPlayerSpellbook()
+  -- Clear any previous data
+  playerKnownSpells = {}
+
+  for i = 1, GetNumSpellTabs() do
+    local offset, numSlots = select(3, GetSpellTabInfo(i))
+
+    for j = offset + 1, offset + numSlots do
+      local spellName, _, spellID = GetSpellBookItemName(j, BOOKTYPE_SPELL)
+      playerKnownSpells[spellID] = spellName
     end
-  return playerKnownSpells
+  end
+return playerKnownSpells
 end
 -- Call the function to populate the table
-ScanPlayerSpellbook()
+--ScanPlayerSpellbook()
 
 -- Function to find matching mounts
 function FindMatchingMounts()
