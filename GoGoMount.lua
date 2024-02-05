@@ -36,6 +36,7 @@ function GoGoAddon_OnEvent(self, event, arg1, ...)
     --    local logic = require("GoGoLogic")
     --    if logic then print("Logic Loaded!") end
     print("GoGoMount Addon Loaded") -- Check for existing keybind and update UI
+    findMatchingClassForms()
     ScanPlayerSpellbook()           -- Call the function on load so that we can populate data from the game client
     ScanInventory()
     --[[elseif event == "PLAYER_REGEN_ENABLED" then

@@ -4,10 +4,42 @@ local playerClass = UnitClass("player")
 local playerRace = UnitRace("player")
 local playerLevel = UnitLevel("player")
 local outside = IsOutdoors()
-local swimming = IsSwimming()
+local swimming = IsSwimming("player")
 local inCombat = InCombatLockdown()
-
+local playerRaceID = getSelectedRaceID()
+local matchedMounts = findMatchingClassForms(playerLevel, playerRaceID)
+local GoGoMountData = {}
+GoGoMountData.matchedMounts = {}
 GoGoMountData.playerKnownSpells = {} -- Declare table outside the function
+
+function findMatchingClassForms(playerLevel, playerClass)
+    local matchedMounts = {}
+  
+    -- Check for eligible classes (druid, hunter, shaman)
+    if playerClass == GoGoMountData.classIndex[11] or
+       playerClass == GoGoMountData.classIndex[3] or
+       playerClass == GoGoMountData.classIndex[7] then
+  
+      -- Iterate through class forms, checking for matches and player level requirement
+      for spellID, mountData in pairs(GoGoMountData.classForms) do
+        local spellName = GetSpellInfo(spellID)  -- Get spell name from ID
+  
+        -- Check if player knows the spell and meets level requirement
+        if GoGoMountData.playerKnownSpells[spellName] and playerLevel >= mountData.level then
+          table.insert(matchedMounts, {
+            name = spellName,
+            type = mountData.type,
+            usable = mountData.usable,
+            combat = mountData.combat,
+          })
+        end
+      end
+    end
+  
+    return matchedMounts
+  end
+  
+
 
 function ScanPlayerSpellbook()
   GoGoMountData.playerKnownSpells = {} -- Clear the table
@@ -21,65 +53,100 @@ function ScanPlayerSpellbook()
   end
   return GoGoMountData.playerKnownSpells
 end
+  
+  -- TODO: build function to find current riding skill (Maybe only if player >= level 40)
+  --ScanPlayerSpellbook() -- Call the function to populate the table -- even if we called this function from GoGoMount.lua via event trigger
+  
+  -- Function to find matching mounts
+  local matchingMounts = {}
 
--- TODO: build function to find current riding skill (Maybe only if player >= level 40)
-ScanPlayerSpellbook() -- Call the function to populate the table
+--[[ Function to find known spell mounts
+function knownSpellMounts()
+  local matchingSpells = {}
 
--- Function to find matching mounts
-local matchingMounts = {}
-function FindMatchingMounts()
-  -- Iterate through class forms and spell mounts
-  for category, mountData in pairs({ classForms = GoGoMountData.classForms, spellMounts = GoGoMountData.spellMounts }) do
-    for spellName, spellID in pairs(mountData) do
-      if GoGoMountData.playerKnownSpells[spellName] then
-        table.insert(matchingMounts, {
-          name = spellID.name,
-          spellID = spellID,
-          item = spellID.item,
-          spell = spellID.spell,
-          level = spellID.level,
-        })
+  -- Check for classes with spell mounts
+  if playerClass ~= "PALADIN" and playerClass ~= "WARLOCK" then
+    local spellmounts = GoGoMountData.mounts[playerClass]  -- Retrieve spell mounts for the player's class
+    if spellmounts then
+      for _, mountInfo in pairs(mounts) do
+        -- Check if the player knows the spell
+        if GoGoMountData.playerKnownSpells[mountInfo.name] then
+          table.insert(matchingSpells, mountInfo)
+        end
       end
     end
   end
+
+  return matchingSpells
+end]]--
+
+-- Initialize inventory table with itemIDs
+GoGoMountData.playerInventory = {}
+
+function playerItemMounts()
+  local matchingMounts = {}
+
+  for bag = 0, NUM_BAG_FRAMES do
+    for slot = 1, C_Container.GetContainerNumSlots(bag) do
+      local itemID = C_Container.GetContainerItemID(bag, slot)
+      GoGoMountData.playerInventory[itemID] = true
+    end
+  end
+
+  -- Combine scanning and matching
+  for itemID, _ in pairs(GoGoMountData.itemMounts) do
+    if GoGoMountData.playerInventory[itemID] then
+      table.insert(matchingMounts, {
+        itemID = itemID,
+        -- Add other necessary item information here
+      })
+      return matchingMounts  -- Return early if a match is found
+    end
+  end
+
   return matchingMounts
 end
 
-matchingMounts = FindMatchingMounts()
--- Print the names of the matching mounts
-for _, mountData in pairs(matchingMounts) do
-  print("Matching mount:", mountData.name)
-  table.insert(GoGoMountData.matchingMounts, mountData.index)
-end
 
-function CanUseMount(playerClass, mountID)
-  -- Check class restrictions:
-  local allowedClasses = GoGoMountData.spellMounts[mountID].class -- Assuming class restrictions are stored here
-  if allowedClasses and not table.find(allowedClasses, playerClass) then
-    return false                                                  -- Mount not usable by this class
+function smartmountClick()
+  if InCombatLockdown() then
+    return false  -- Do nothing or display a message
   end
-  return true
+  matchingMounts = FindMatchingMounts()
+
+  -- Print the names of the matching mounts
+  for _, mountData in pairs(matchingMounts) do
+    print("Matching mount:", mountData.name)
+    table.insert(GoGoMountData.matchingMounts, mountData.index)
+  end
+
+  -- Find all matching forms, spells, and items
+  local classForms = knownClassForms()
+  local spellmounts = knownSpellmounts()
+  local itemmounts = playerItemmounts() -- Add item mounts when implemented
+
+  -- Combine results into a single table
+  GoGomountData.matchingmounts = {}  -- Clear the table
+  for _, mountInfo in pairs(classForms) do
+    table.insert(GoGomountData.matchingmounts, mountInfo)
+  end
+  for _, mountInfo in pairs(mounts) do
+    table.insert(GoGomountData.matchingmounts, mountInfo)
+  end
+  for _, mountInfo in pairs(itemmounts) do
+    table.insert(GoGomountData.matchingmounts, mountInfo)
+  end
+
+  -- ... further filtering and decision-making logic based on level, location, swimming, etc. ...
+
+  -- Use the selected mount or form
+  -- ... implement logic to use the selected mount or form ...
+
+  return true  -- Indicate success
 end
 
 GoGoMountData.playerInventory = {}
-function ScanInventory()
-  print("Scan Inventory Function has been called!, Running Scan now")
-  GoGoMountData.playerInventory = {} -- Initialize inventory table
-  for bag = 0, NUM_BAG_FRAMES do
-    for slot = 1, C_Container.GetContainerNumSlots(bag) do
-      local name = C_Container.GetContainerItemLink(bag, slot)
-      local itemID = C_Container.GetContainerItemID(bag, slot)   -- Retrieve itemID
-      print(bag, slot)
-      table.insert(GoGoMountData.playerInventory, {
-        name = name,
-        itemID = itemID,
-        bag = bag,
-        slot = slot,
-      })
-    end
-  end
-  return GoGoMountData.playerInventory
-end
+function ScanInventory() end
 
 function ScanInventory()
   print("Scan Inventory Function has been called!, Running Scan now")
@@ -103,25 +170,23 @@ function ScanInventory()
 end
 
 ScanInventory()
-
-local function smartMountClick()
-  if InCombatLockdown() then
-    return false -- Do nothing or display a message
-  end
-
-  local matchedMounts = {}
-
-  -- Check for special movement abilities first
-  local classInfo = GoGoMountData.classForms[playerClass]
-  if classInfo then
-    for _, formInfo in pairs(classInfo) do
-      if formInfo.level <= playerLevel and           -- Level restriction
-          (not formInfo.outdoors or IsOutdoors()) and -- Outdoor check
-          (not formInfo.swim or IsSwimming()) then   -- Aquatic check
-        table.insert(matchedMounts, formInfo)
+function FindMatchingMounts()
+  -- Iterate through class forms and spell mounts
+  for category, mountData in pairs({ classForms = GoGoMountData.classForms, spellMounts = GoGoMountData.spellMounts }) do
+    for spellName, spellID in pairs(mountData) do
+      if GoGoMountData.playerKnownSpells[spellName] then
+        table.insert(matchingMounts, {
+          name = spellID.name,
+          spellID = spellID,
+          item = spellID.item,
+          spell = spellID.spell,
+          level = spellID.level,
+        })
       end
     end
   end
+  return matchingMounts
+end
 
   -- If no suitable special movement found, check for regular mounts
   if #matchedMounts == 0 and playerLevel >= 40 then
@@ -131,7 +196,7 @@ local function smartMountClick()
     end)
     table.insert(matchedMounts, filteredMounts)
   end
-
+--[[
   -- Select the best available mode of transport
   local bestMode = nil
 
@@ -163,6 +228,7 @@ local function smartMountClick()
 
   return true -- Indicate success
 end
+]]
 -- Function to print mount information for debugging
 --[[function DebugMounts(mountList, arg)
   local category = arg and arg:lower() or "class"

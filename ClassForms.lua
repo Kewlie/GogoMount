@@ -10,6 +10,7 @@ GoGoMountData.classForms = {
         useable = { "outdoors", },
         combat = true,
         swim = false,
+        loc = nil,
         races = { GoGoMountData.raceID[4], GoGoMountData.raceID[5], },
     },
     [768] = {
@@ -19,6 +20,7 @@ GoGoMountData.classForms = {
         useable = { "indoors", "outdoors", },
         combat = true,
         swim = false,
+        loc = nil,
         races = { GoGoMountData.raceID[4], GoGoMountData.raceID[5] },
     },
     [5061] = {
@@ -28,6 +30,7 @@ GoGoMountData.classForms = {
         level = 16,
         combat = true,
         swim = true,
+        loc = nil,
         races = { GoGoMountData.raceID[4], GoGoMountData.raceID[5] },
     },
     [2645] = {
@@ -46,6 +49,7 @@ GoGoMountData.classForms = {
         useable = { "indoors", "outdoors", },
         combat = true,
         swim = false,
+        loc = nil,
         races = { GoGoMountData.raceID[2], GoGoMountData.raceID[4], GoGoMountData.raceID[5], GoGoMountData.raceID[6], GoGoMountData.raceID[8] },
     },
     [13159] = {
@@ -55,6 +59,7 @@ GoGoMountData.classForms = {
         useable = { "indoors", "outdoors", },
         combat = true,
         swim = false,
+        loc = nil,
         races = { GoGoMountData.raceID[2], GoGoMountData.raceID[4], GoGoMountData.raceID[5], GoGoMountData.raceID[6], GoGoMountData.raceID[8] },
     },
 }

@@ -1,4 +1,4 @@
--- Note: raceID table is located in GoGoMountData, using the refrenced table since we are storing the data anyway
+-- Note: raceID table is located in GoGoMountData, using the refrenced table since wswim = false,e are storing the data anyway
 -- to me this is a neat way of doing it since we can then use smart logic like table.find(playerClass, GoGoMountData.raceID)
 -- and then select spells / mounts that are useable for the current played class
 
@@ -10,6 +10,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40,
     races = {
       GoGoMountData.raceID[2],
@@ -25,6 +26,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -40,6 +42,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -55,6 +58,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -70,6 +74,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -87,6 +92,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[3],
@@ -101,6 +107,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[3],
@@ -115,6 +122,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[3],
@@ -129,6 +137,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[3],
@@ -143,6 +152,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[3],
@@ -158,6 +168,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -173,6 +184,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -188,6 +200,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -203,6 +216,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -218,6 +232,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -233,6 +248,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -250,6 +266,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -265,6 +282,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -279,6 +297,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -294,6 +313,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -309,6 +329,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -324,6 +345,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -342,6 +364,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -358,6 +381,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -372,6 +396,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -386,6 +411,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -400,6 +426,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -414,6 +441,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -428,6 +456,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -444,6 +473,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, -- Level Requirement to use the Mount
     races = {
       GoGoMountData.raceID[6],
@@ -457,6 +487,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, -- Level Requirement to use the Mount
     races = {
       GoGoMountData.raceID[6],
@@ -470,6 +501,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, -- Level Requirement to use the Mount
     races = {
       GoGoMountData.raceID[6],
@@ -483,6 +515,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, -- Level Requirement to use the Mount
     races = {
       GoGoMountData.raceID[6],
@@ -496,6 +529,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, -- Level Requirement to use the Mount
     races = {
       GoGoMountData.raceID[6],
@@ -509,6 +543,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[6],
@@ -522,6 +557,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[6],
@@ -537,6 +573,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -552,6 +589,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -567,6 +605,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -582,6 +621,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -597,6 +637,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -612,6 +653,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -629,6 +671,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -644,6 +687,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -659,6 +703,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 40, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -674,6 +719,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -689,6 +735,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -704,6 +751,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -721,6 +769,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60,
     races = {
       GoGoMountData.raceID[2],
@@ -737,6 +786,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -753,6 +803,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -769,6 +820,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -785,6 +837,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[2],
@@ -803,6 +856,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -819,6 +873,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -835,6 +890,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -851,6 +907,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -869,6 +926,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -888,6 +946,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -907,6 +966,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
+    loc  = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],
@@ -1008,7 +1068,7 @@ GoGoMountData.itemMounts = {
     type = "item",
     useable = "outdoors",
     combat = false,
-    combat = false,
+    loc = nil,
     level = 60, --Level Required to Use
     races = {
       GoGoMountData.raceID[1],

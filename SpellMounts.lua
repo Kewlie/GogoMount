@@ -10,6 +10,7 @@ GoGoMountData.spellMounts = {
         type = "spell",
         useable = "outdoors",
         combat = false,
+        loc = nil,
         class = GoGoMountData.classIndex[2],
         races = {
             GoGoMountData.raceID[1],
@@ -23,6 +24,7 @@ GoGoMountData.spellMounts = {
         type = "spell",
         useable = "outdoors",
         combat = false,
+        loc = nil,
         class = GoGoMountData.classIndex[2],
         races = {
             GoGoMountData.raceID[1],
@@ -36,6 +38,7 @@ GoGoMountData.spellMounts = {
         type = "spell",
         useable = "outdoors",
         combat = false,
+        loc = nil,
         class = GoGoMountData.classIndex[9],
         races = {
             GoGoMountData.raceID[1],
@@ -51,6 +54,7 @@ GoGoMountData.spellMounts = {
         type = "spell",
         useable = "outdoors",
         combat = false,
+        loc = nil,
         class = GoGoMountData.classIndex[9],
         races = {
             GoGoMountData.raceID[1],
