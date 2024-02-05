@@ -32,8 +32,8 @@ GoGoMountData.classIndex = {
 }
 -- spliting races into faction (possibly won't be needed since refrencing factions on mount tables for global setup seems to bug out)
 GoGoMountData.factions = {
-ALLIANCE = {GoGoMountData.raceID[1], GoGoMountData.raceID[4], GoGoMountData.raceID[6], GoGoMountData.raceID[7]},
-HORDE = {GoGoMountData.raceID[2], GoGoMountData.raceID[3], GoGoMountData.raceID[5], GoGoMountData.raceID[8]},
+    ALLIANCE = { GoGoMountData.raceID[1], GoGoMountData.raceID[4], GoGoMountData.raceID[6], GoGoMountData.raceID[7] },
+    HORDE = { GoGoMountData.raceID[2], GoGoMountData.raceID[3], GoGoMountData.raceID[5], GoGoMountData.raceID[8] },
 }
 
 --Concating by custom methods to retain the index while in string form to store
@@ -54,6 +54,7 @@ end
 --Setting concated tables within GoGoMountData for Faction information
 GoGoMountData.allRaceA = table.concat(GoGoMountData.factions.ALLIANCE, ",")
 GoGoMountData.allRaceH = table.concat(GoGoMountData.factions.HORDE, ",")
-GoGoMountData.allRaceB = table.concat(GoGoMountData.factions.ALLIANCE, ",") .. "," .. table.concat(GoGoMountData.factions.HORDE, ",")
+GoGoMountData.allRaceB = table.concat(GoGoMountData.factions.ALLIANCE, ",") ..
+"," .. table.concat(GoGoMountData.factions.HORDE, ",")
 
 _G.GoGoMountData = GoGoMountData

@@ -7,10 +7,10 @@ local outside = IsOutdoors()
 local swimming = IsSwimming()
 local inCombat = InCombatLockdown()
 
-GoGoMountData.playerKnownSpells = {}  -- Declare table outside the function
+GoGoMountData.playerKnownSpells = {} -- Declare table outside the function
 
 function ScanPlayerSpellbook()
-GoGoMountData.playerKnownSpells = {}  -- Clear the table
+  GoGoMountData.playerKnownSpells = {} -- Clear the table
   for i = 1, GetNumSpellTabs() do
     local offset, numSlots = select(3, GetSpellTabInfo(i))
 
@@ -21,13 +21,13 @@ GoGoMountData.playerKnownSpells = {}  -- Clear the table
   end
   return GoGoMountData.playerKnownSpells
 end
+
 -- TODO: build function to find current riding skill (Maybe only if player >= level 40)
-ScanPlayerSpellbook()  -- Call the function to populate the table
+ScanPlayerSpellbook() -- Call the function to populate the table
 
 -- Function to find matching mounts
 local matchingMounts = {}
 function FindMatchingMounts()
-
   -- Iterate through class forms and spell mounts
   for category, mountData in pairs({ classForms = GoGoMountData.classForms, spellMounts = GoGoMountData.spellMounts }) do
     for spellName, spellID in pairs(mountData) do
@@ -44,6 +44,7 @@ function FindMatchingMounts()
   end
   return matchingMounts
 end
+
 matchingMounts = FindMatchingMounts()
 -- Print the names of the matching mounts
 for _, mountData in pairs(matchingMounts) do
@@ -53,53 +54,52 @@ end
 
 function CanUseMount(playerClass, mountID)
   -- Check class restrictions:
-  local allowedClasses = GoGoMountData.spellMounts[mountID].class  -- Assuming class restrictions are stored here
+  local allowedClasses = GoGoMountData.spellMounts[mountID].class -- Assuming class restrictions are stored here
   if allowedClasses and not table.find(allowedClasses, playerClass) then
-    return false  -- Mount not usable by this class
+    return false                                                  -- Mount not usable by this class
   end
-   return true
+  return true
 end
-
 
 GoGoMountData.playerInventory = {}
 function ScanInventory()
   print("Scan Inventory Function has been called!, Running Scan now")
-  GoGoMountData.playerInventory = {}  -- Initialize inventory table
-    for bag = 0, NUM_BAG_FRAMES do
-      for slot = 1, C_Container.GetContainerNumSlots(bag) do
-        local name = C_Container.GetContainerItemLink(bag, slot)
-        local itemID = C_Container.GetContainerItemID(bag, slot)  -- Retrieve itemID
-        print(bag, slot)
-        table.insert(GoGoMountData.playerInventory, {
-          name = name,
-          itemID = itemID,
-          bag = bag,
-          slot = slot,
-          })
-      end
+  GoGoMountData.playerInventory = {} -- Initialize inventory table
+  for bag = 0, NUM_BAG_FRAMES do
+    for slot = 1, C_Container.GetContainerNumSlots(bag) do
+      local name = C_Container.GetContainerItemLink(bag, slot)
+      local itemID = C_Container.GetContainerItemID(bag, slot)   -- Retrieve itemID
+      print(bag, slot)
+      table.insert(GoGoMountData.playerInventory, {
+        name = name,
+        itemID = itemID,
+        bag = bag,
+        slot = slot,
+      })
     end
-    return GoGoMountData.playerInventory
+  end
+  return GoGoMountData.playerInventory
 end
 
 function ScanInventory()
   print("Scan Inventory Function has been called!, Running Scan now")
-  GoGoMountData.playerInventory = {}  -- Initialize inventory table
-    for bag = 0, NUM_BAG_FRAMES do
-      for slot = 1, C_Container.GetContainerNumSlots(bag) do
-        local itemLink = C_Container.GetContainerItemLink(bag, slot)
-        local itemName = itemLink and itemLink:match("%[(.-)%]")
-        local itemID = C_Container.GetContainerItemID(bag, slot)  -- Retrieve itemID
-        table.insert(GoGoMountData.playerInventory, {
-          name = itemName,
-          itemID = itemID,
-          itemLink = itemLink,
-          bag = bag,
-          slot = slot,
-          })
-          print(GoGoMountData.playerInventory)
-      end
+  GoGoMountData.playerInventory = {} -- Initialize inventory table
+  for bag = 0, NUM_BAG_FRAMES do
+    for slot = 1, C_Container.GetContainerNumSlots(bag) do
+      local itemLink = C_Container.GetContainerItemLink(bag, slot)
+      local itemName = itemLink and itemLink:match("%[(.-)%]")
+      local itemID = C_Container.GetContainerItemID(bag, slot)   -- Retrieve itemID
+      table.insert(GoGoMountData.playerInventory, {
+        name = itemName,
+        itemID = itemID,
+        itemLink = itemLink,
+        bag = bag,
+        slot = slot,
+      })
+      print(GoGoMountData.playerInventory)
     end
-    return GoGoMountData.playerInventory
+  end
+  return GoGoMountData.playerInventory
 end
 
 ScanInventory()
@@ -115,9 +115,9 @@ local function smartMountClick()
   local classInfo = GoGoMountData.classForms[playerClass]
   if classInfo then
     for _, formInfo in pairs(classInfo) do
-      if formInfo.level <= playerLevel and -- Level restriction
-         (not formInfo.outdoors or IsOutdoors()) and -- Outdoor check
-         (not formInfo.swim or IsSwimming()) then -- Aquatic check
+      if formInfo.level <= playerLevel and           -- Level restriction
+          (not formInfo.outdoors or IsOutdoors()) and -- Outdoor check
+          (not formInfo.swim or IsSwimming()) then   -- Aquatic check
         table.insert(matchedMounts, formInfo)
       end
     end

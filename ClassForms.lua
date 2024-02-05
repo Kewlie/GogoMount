@@ -1,49 +1,60 @@
+-- Note: raceID table is located in GoGoMountData, using the refrenced table since we are storing the data anyway
+-- to me this is a neat way of doing it since we can then use smart logic like table.find(playerClass, GoGoMountData.raceID)
+-- and then select spells / mounts that are useable for the current played class
+
 GoGoMountData.classForms = {
     [783] = {
         name = "Travel Form",
         type = "form",
         level = 30,
-        useable = {"outdoors",},
-        swim = false, -- can't use in while swimming anyway but for data lookups we might need this to exclude if we have both aqua form and travel form but are swimming
-        races = {GoGoMountData.raceID[4],GoGoMountData.raceID[5],},
+        useable = { "outdoors", },
+        combat = true,
+        swim = false,
+        races = { GoGoMountData.raceID[4], GoGoMountData.raceID[5], },
     },
     [768] = {
         name = "Cat Form",
         type = "form",
         level = 20,
-        useable = {"indoors","outdoors",},
-        swim = false, -- can use swimming but for logic we want to shift into Aquatic Form
-        races = {GoGoMountData.raceID[4],GoGoMountData.raceID[5]},
+        useable = { "indoors", "outdoors", },
+        combat = true,
+        swim = false,
+        races = { GoGoMountData.raceID[4], GoGoMountData.raceID[5] },
     },
     [5061] = {
         name = "Aquatic Form",
         type = "form",
-        useable = {"outdoors",},
+        useable = { "outdoors", },
         level = 16,
+        combat = true,
         swim = true,
-        races = {GoGoMountData.raceID[4],GoGoMountData.raceID[5]}, -- this data is pulling raceId[4] and [5] from the global table wich inidcate that race = night elf and tauren
+        races = { GoGoMountData.raceID[4], GoGoMountData.raceID[5] },
     },
     [2645] = {
         name = "Ghost Wolf",
         type = "buff",
         level = 20,
-        useable = {"outdoors",},
+        combat = true,
+        useable = { "outdoors", },
         swim = "false",
-        races = {GoGoMountData.raceID[2],GoGoMountData.raceID[5],GoGoMountData.raceID[8]},
+        races = { GoGoMountData.raceID[2], GoGoMountData.raceID[5], GoGoMountData.raceID[8] },
     },
     [5118] = {
         name = "Aspect of the Cheetah",
         type = "buff",
         level = 20,
-        useable = {"indoors","outdoors",},
+        useable = { "indoors", "outdoors", },
+        combat = true,
         swim = false,
-        races = {GoGoMountData.raceID[2],GoGoMountData.raceID[4],GoGoMountData.raceID[5],GoGoMountData.raceID[6],GoGoMountData.raceID[8]},
+        races = { GoGoMountData.raceID[2], GoGoMountData.raceID[4], GoGoMountData.raceID[5], GoGoMountData.raceID[6], GoGoMountData.raceID[8] },
     },
     [13159] = {
         name = "Aspect of the Pack",
         type = "buff",
         level = 40,
+        useable = { "indoors", "outdoors", },
+        combat = true,
         swim = false,
-        races = {GoGoMountData.raceID[2],GoGoMountData.raceID[4],GoGoMountData.raceID[5],GoGoMountData.raceID[6],GoGoMountData.raceID[8]},
+        races = { GoGoMountData.raceID[2], GoGoMountData.raceID[4], GoGoMountData.raceID[5], GoGoMountData.raceID[6], GoGoMountData.raceID[8] },
     },
 }
