@@ -73,9 +73,55 @@ function findMatchingSpells()
   GoGoMountData.matchedMounts = matchedMounts
 end
 findMatchingSpells()
-if not GoGoMountData.matchingMounts then
-  print("Sorry you have no way to increase your movement")
-  print("Please play a druid :D")
-  GoGoMountData.matchedMounts = {}
+
+local function ChooseBestMount(matchedMounts)
+  local conditions = {}
+
+  -- Iterate over matchedMounts and create dynamic conditions
+  for _, mountData in pairs(matchedMounts) do
+    local conditionFunction = function()
+      -- Check data validity (optional)
+      if not mountData.type or not mountData.name then
+        return false
+      end
+    end
+  end
 end
+
+--[[
+      -- Check form type (adapt for item mounts if needed)
+      if mountData.type == "form" then
+        -- Apply specific conditions for forms (e.g., level, race, location, swimming)
+        -- Adapt these conditions based on your classForms data and priorities
+        if ... then
+          return true
+        end
+      else
+        -- Add conditions for other mount types (e.g., item mounts)
+        if ... then
+          return true
+        end
+      end
+
+      -- Return false if no conditions match
+      return false
+    end
+    conditions[mountData.name] = conditionFunction
+  end
+
+  -- Prioritize and select the best mount
+  for conditionName, conditionFunction in pairs(conditions) do
+    if conditionFunction() then
+      -- Get mount ID from the matchedMounts data
+      local mountID = mountData.spellID or mountData.itemID -- Adjust for spell/item mounts
+      if mountID then
+        return mountID
+      end
+    end
+  end
+
+  -- Return default mount ID if none match
+  return GetDefaultMountID()
+end
+]]--
 _G.GoGoMountData = GoGoMountData
