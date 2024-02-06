@@ -1,7 +1,7 @@
 -- Note: raceID table is located in GoGoMountData, using the refrenced table since we are storing the data anyway
 -- to me this is a neat way of doing it since we can then use smart logic like table.find(playerClass, GoGoMountData.raceID)
 -- and then select spells / mounts that are useable for the current played class
-
+local GoGoMountData = _G.GoGoMountData or {}
 
 GoGoMountData.spellMounts = {
     [13819] = {
@@ -14,7 +14,7 @@ GoGoMountData.spellMounts = {
         class = GoGoMountData.classIndex[2],
         races = {
             GoGoMountData.raceID[1],
-            GoGoMountData.raceID[6]
+            GoGoMountData.raceID[6],
         },
         skill = nil,
     },
@@ -65,3 +65,5 @@ GoGoMountData.spellMounts = {
         skill = nil,
     },
 }
+
+_G.GoGoMountData = GoGoMountData

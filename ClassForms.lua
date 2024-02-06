@@ -1,8 +1,10 @@
 -- Note: raceID table is located in GoGoMountData, using the refrenced table since we are storing the data anyway
 -- to me this is a neat way of doing it since we can then use smart logic like table.find(playerClass, GoGoMountData.raceID)
 -- and then select spells / mounts that are useable for the current played class
+local GoGoMountData = _G.GoGoMountData or {}
 
-GoGoMountData.classForms = {
+
+classForms = {
     [783] = {
         name = "Travel Form",
         type = "form",
@@ -23,7 +25,7 @@ GoGoMountData.classForms = {
         loc = nil,
         races = { GoGoMountData.raceID[4], GoGoMountData.raceID[5] },
     },
-    [5061] = {
+    [1066] = {
         name = "Aquatic Form",
         type = "form",
         useable = { "outdoors", },
@@ -63,3 +65,5 @@ GoGoMountData.classForms = {
         races = { GoGoMountData.raceID[2], GoGoMountData.raceID[4], GoGoMountData.raceID[5], GoGoMountData.raceID[6], GoGoMountData.raceID[8] },
     },
 }
+
+_G.GoGoMountData.classForms = classForms

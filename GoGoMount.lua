@@ -36,9 +36,9 @@ function GoGoAddon_OnEvent(self, event, arg1, ...)
     --    local logic = require("GoGoLogic")
     --    if logic then print("Logic Loaded!") end
     print("GoGoMount Addon Loaded") -- Check for existing keybind and update UI
-    findMatchingClassForms()
     ScanPlayerSpellbook()           -- Call the function on load so that we can populate data from the game client
     ScanInventory()
+    findMatchingClassForms()
     --[[elseif event == "PLAYER_REGEN_ENABLED" then
       ScanPlayerSpellbook()
     ScanInventory() -- call function here to keep data up to date or maybe register spell book change?

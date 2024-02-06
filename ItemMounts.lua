@@ -1,7 +1,7 @@
--- Note: raceID table is located in GoGoMountData, using the refrenced table since wswim = false,e are storing the data anyway
+-- Note: raceID table is located in GoGoMountData, using the refrenced table since swim = false, we are storing the data anyway
 -- to me this is a neat way of doing it since we can then use smart logic like table.find(playerClass, GoGoMountData.raceID)
 -- and then select spells / mounts that are useable for the current played class
-
+local GoGoMountData = _G.GoGoMountData or {}
 
 GoGoMountData.itemMounts = {
 
@@ -1083,3 +1083,4 @@ GoGoMountData.itemMounts = {
     skill = nil,
   },
 }
+_G.GoGoMountData = GoGoMountData

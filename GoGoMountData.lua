@@ -1,22 +1,7 @@
 local _, GoGoMountData = ...
-_G.GoGoMountData = {}
+GoGoMountData = {}
 
---nesting classForms, itemMounts, and spellMounts into GoGoMountData
-GoGoMountData = GoGoMountData
-
---Storing Race information in GoGoMountData
-GoGoMountData.raceID = {
-    [1] = "HUMAN",
-    [2] = "ORC",
-    [3] = "UNDEAD",
-    [4] = "NIGHT ELF",
-    [5] = "TAUREN",
-    [6] = "DWARF",
-    [7] = "GNOME",
-    [8] = "TROLL",
-}
-
--- Listing Blizzard Index for Playable Classes
+-- Storing ClassID as assigned by Blizzard
 GoGoMountData.classIndex = {
     [1] = "WARRIOR",
     [2] = "PALADIN",
@@ -30,13 +15,42 @@ GoGoMountData.classIndex = {
     [10] = nil,
     [11] = "DRUID",
 }
--- spliting races into faction (possibly won't be needed since refrencing factions on mount tables for global setup seems to bug out)
-GoGoMountData.factions = {
-    ALLIANCE = { GoGoMountData.raceID[1], GoGoMountData.raceID[4], GoGoMountData.raceID[6], GoGoMountData.raceID[7] },
-    HORDE = { GoGoMountData.raceID[2], GoGoMountData.raceID[3], GoGoMountData.raceID[5], GoGoMountData.raceID[8] },
-}
 
---Concating by custom methods to retain the index while in string form to store
+--Storing RaceID as assigned by Blizzard
+GoGoMountData.raceID = {
+    [1] = "HUMAN",
+    [2] = "ORC",
+    [3] = "UNDEAD",
+    [4] = "NIGHT ELF",
+    [5] = "TAUREN",
+    [6] = "DWARF",
+    [7] = "GNOME",
+    [8] = "TROLL",
+}
+-- Storing Factions (TABLE) as assigned by Blizzard
+
+-- we could just call apon C_CreatureInfo.GetFactionInfo(GetUnitRace("player")) but having this hard coded prevents api calls
+GoGoMountData.factions = {
+    ALLIANCE = {
+        GoGoMountData.raceID[1],
+        GoGoMountData.raceID[4],
+        GoGoMountData.raceID[6],
+        GoGoMountData.raceID[7],
+    },
+    HORDE = { 
+        GoGoMountData.raceID[2],
+        GoGoMountData.raceID[3],
+        GoGoMountData.raceID[5],
+        GoGoMountData.raceID[8],
+    },
+}
+--Storing RaceID to Faction ALLIANCE as a string (maybe not needed)
+GoGoMountData.allRaceA = table.concat(GoGoMountData.factions.ALLIANCE, ",")
+--Storing RaceID to Faction HORDE as a string (maybe not needed)
+GoGoMountData.allRaceH = table.concat(GoGoMountData.factions.HORDE, ",")
+--Storing RaceID to Both Factions as a string (maybe not needed)
+GoGoMountData.allRaceB = table.concat(GoGoMountData.factions.ALLIANCE, ",") .. "," .. table.concat(GoGoMountData.factions.HORDE, ",")
+
 --just in case we need to call apon it via string search
 function CustomConcat(table, separator)
     local result = ""
@@ -50,11 +64,4 @@ function CustomConcat(table, separator)
     end
     return result
 end
-
---Setting concated tables within GoGoMountData for Faction information
-GoGoMountData.allRaceA = table.concat(GoGoMountData.factions.ALLIANCE, ",")
-GoGoMountData.allRaceH = table.concat(GoGoMountData.factions.HORDE, ",")
-GoGoMountData.allRaceB = table.concat(GoGoMountData.factions.ALLIANCE, ",") ..
-"," .. table.concat(GoGoMountData.factions.HORDE, ",")
-
 _G.GoGoMountData = GoGoMountData
